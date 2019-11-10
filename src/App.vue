@@ -1,8 +1,23 @@
 <template>
   <div id="app">
-    <button @click="throttle(countUp, 1000)">Click me</button>
     <h3>Changed {{ count }} times</h3>
-    <input @keyup="throttle(countUp, 1000)" />
+    <div class="examples">
+      <div class="container">
+        <h2>Throttle</h2>
+        <button @click="throttle(countUp, 1000)">Click me</button>
+        <input @keyup="throttle(countUp, 1000)" />
+      </div>
+      <div class="container">
+        <h2>Normal</h2>
+        <button @click="countUp">Click me</button>
+        <input @keyup="countUp" />
+      </div>
+      <div class="container">
+        <h2>Debounce</h2>
+        <button @click="debounce(countUp, 1000)">Click me</button>
+        <input @keyup="debounce(countUp, 1000)" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,7 +52,19 @@ export default {
 <style>
 #app {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.examples {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  margin: 60px;
+  display: flex;
+  flex-direction: column;
 }
 </style>
