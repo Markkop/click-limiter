@@ -1,26 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button @click="throttle(countUp, 1000)">Click me</button>
+    <h3>Changed {{ count }} times</h3>
+    <input @keyup="throttle(countUp, 1000)" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  name: "app",
+  data: () => ({
+    count: 0
+  }),
+
+  methods: {
+    countUp() {
+      this.count++;
+    },
+
+    debounce: function(callback, wait) {
+      if (this.timeout) clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => callback(), wait);
+    },
+
+    throttle: function(callback, wait) {
+      if (!this.isWaiting) {
+        this.isWaiting = true;
+        callback();
+        setTimeout(() => (this.isWaiting = false), wait);
+      }
+    }
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
